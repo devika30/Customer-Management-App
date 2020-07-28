@@ -4,14 +4,30 @@ from .models import *
 def home(request):
     orders=Order.objects.all()
     customers=Customer.objects.all()
+    total_orders=orders.count()
+    total_customers=customers.count()
+    delivered=orders.filter(status='Delivered').count()
+    pending=orders.filter(status='Pending').count()
     context={
         'orders':orders,
-        'customers':customers
+        'customers':customers,
+        'total_orders':total_orders,
+        'total_customers':total_customers,
+        'delivered':delivered,
+        'pending':pending
     }
     return render(request,'accounts/dashboard.html',context)
 
-def customer(request):
-    return render(request,'accounts/customer.html')
+def customer(request,pk_test):
+    customer=Customer.objects.get(id=pk_test)
+    order=customer.order_set.all()
+    total_orders=order.count()
+    context={
+        'customer':customer,
+        'order':order,
+        'total_orders':total_orders
+    }
+    return render(request,'accounts/customer.html',context)
 
 
 def products(request):
