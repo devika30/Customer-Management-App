@@ -10,7 +10,7 @@
 			<h5>Customer:{{customer.name}}</h5>
 			<hr>
 			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Customer</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'accounts:create-order' customer.id%}">Place Order</a>
 
 		</div>
 	</div>
@@ -39,7 +39,7 @@
 	<div class="col">
 		<div class="card card-body">
 			<form method="get">
-
+				{{myFilter.form}}
 		    <button class="btn btn-primary" type="submit">Search</button>
 		  </form>
 		</div>
@@ -55,6 +55,7 @@
 				<tr>
 					<th>Product</th>
 					<th>Category</th>
+					<th>Note</th>
 					<th>Date Orderd</th>
 					<th>Status</th>
 					<th>Update</th>
@@ -62,12 +63,13 @@
 				</tr>
 					{% for i in order %}
 					<tr>
-						<th>{{i.product}}</th>
-						<th>{{i.product.category}}</th>
-						<th>{{i.date_created}}</th>
-						<th>{{i.status}}</th>
-						<th><a href="#" class="btn btn-sm btn-info">Update</a></th>
-						<th><a href="#" class="btn btn-sm btn-danger">Delete</a></th>
+						<td>{{i.product}}</td>
+						<td>{{i.product.category}}</td>
+						<td>{{i.product.note}}</td>
+						<td>{{i.date_created}}</td>
+						<td>{{i.status}}</td>
+						<td><a href="#" class="btn btn-sm btn-info">Update</a></td>
+						<td><a href="#" class="btn btn-sm btn-danger">Delete</a></td>
 					</tr>
 					{% endfor %}
 			</table>
